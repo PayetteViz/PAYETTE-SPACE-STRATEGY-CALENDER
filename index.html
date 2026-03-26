@@ -6,329 +6,256 @@
 <title>PAYETTE SPACE STRATEGY CALENDAR</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
 :root {
-  --bg: #ffffff;
-  --text: #1a1a1a;
-  --border: #e0e0e0;
-  --header-bg: #f7f7f7;
-  --holiday-bg: #e8e8e8;
-  --day-header: #888;
-  --outside: #ccc;
-  --legend-bg: #fafafa;
+  --bg:#fff;--text:#1a1a1a;--border:#e0e0e0;--header-bg:#f7f7f7;
+  --holiday-bg:#e8e8e8;--day-header:#888;--outside:#ccc;--legend-bg:#fafafa;
 }
+body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
 
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-}
-
-/* ==================== PROJECT SELECTOR ==================== */
+/* ===== PROJECT SCREEN ===== */
 .project-screen {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 24px;
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; padding:60px 24px;
 }
-.project-screen.hidden { display: none; }
+.project-screen.hidden { display:none; }
 .project-logo {
-  font-family: 'Space Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: #bbb;
-  margin-bottom: 8px;
+  font-family:'Space Mono',monospace; font-size:13px; font-weight:700;
+  letter-spacing:4px; text-transform:uppercase; color:#bbb; margin-bottom:8px;
 }
 .project-title {
-  font-family: 'Space Mono', monospace;
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  margin-bottom: 48px;
-  text-align: center;
+  font-family:'Space Mono',monospace; font-size:28px; font-weight:700;
+  letter-spacing:2px; margin-bottom:48px; text-align:center;
 }
 .project-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-  width: 100%;
-  max-width: 860px;
-  margin-bottom: 24px;
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px; width:100%; max-width:860px; margin-bottom:24px;
 }
 .project-card {
-  border: 1px solid var(--border);
-  padding: 24px;
-  cursor: pointer;
-  transition: all 0.2s;
-  position: relative;
-  background: #fff;
+  border:1px solid var(--border); padding:24px; cursor:pointer;
+  transition:all .2s; position:relative; background:#fff;
 }
-.project-card:hover {
-  border-color: #111;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-}
+.project-card:hover { border-color:#111; box-shadow:0 4px 20px rgba(0,0,0,.06); }
 .project-card-name {
-  font-family: 'Space Mono', monospace;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 6px;
+  font-family:'Space Mono',monospace; font-size:14px; font-weight:700;
+  letter-spacing:1px; margin-bottom:6px;
 }
-.project-card-meta {
-  font-size: 11px;
-  color: #999;
-}
+.project-card-meta { font-size:11px; color:#999; }
 .project-card-delete {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  width: 24px;
-  height: 24px;
-  border: none;
-  background: transparent;
-  color: #ccc;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  opacity: 0;
-  transition: all 0.15s;
+  position:absolute; top:10px; right:12px; width:24px; height:24px;
+  border:none; background:transparent; color:#ccc; font-size:18px;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  border-radius:50%; opacity:0; transition:all .15s;
 }
-.project-card:hover .project-card-delete { opacity: 1; }
-.project-card-delete:hover { background: #eee; color: #666; }
-
+.project-card:hover .project-card-delete { opacity:1; }
+.project-card-delete:hover { background:#eee; color:#666; }
 .add-project-card {
-  border: 2px dashed #ddd;
-  padding: 24px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: #bbb;
-  transition: all 0.2s;
-  min-height: 100px;
+  border:2px dashed #ddd; padding:24px; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; gap:8px; color:#bbb; transition:all .2s; min-height:100px;
 }
-.add-project-card:hover {
-  border-color: #999;
-  color: #666;
-}
-.add-project-card .plus { font-size: 28px; line-height: 1; }
-.add-project-card span { font-size: 12px; font-weight: 500; }
+.add-project-card:hover { border-color:#999; color:#666; }
+.add-project-card .plus { font-size:28px; line-height:1; }
+.add-project-card span { font-size:12px; font-weight:500; }
 
-/* Modal */
+/* ===== MODAL ===== */
 .modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.35);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 10000;
+  position:fixed; inset:0; background:rgba(0,0,0,.35);
+  display:flex; align-items:center; justify-content:center; z-index:10000;
 }
-.modal-overlay.hidden { display: none; }
-.modal-box {
-  background: #fff; padding: 32px; width: 400px; max-width: 90vw;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-}
-.modal-box h3 {
-  font-family: 'Space Mono', monospace; font-size: 14px;
-  letter-spacing: 1px; margin-bottom: 20px;
-}
+.modal-overlay.hidden { display:none; }
+.modal-box { background:#fff; padding:32px; width:400px; max-width:90vw; box-shadow:0 20px 60px rgba(0,0,0,.15); }
+.modal-box h3 { font-family:'Space Mono',monospace; font-size:14px; letter-spacing:1px; margin-bottom:20px; }
 .modal-box input {
-  width: 100%; padding: 10px 14px; border: 1px solid var(--border);
-  font-family: 'DM Sans', sans-serif; font-size: 14px;
-  outline: none; margin-bottom: 20px;
+  width:100%; padding:10px 14px; border:1px solid var(--border);
+  font-family:'DM Sans',sans-serif; font-size:14px; outline:none; margin-bottom:20px;
 }
-.modal-box input:focus { border-color: #111; }
-.modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+.modal-box input:focus { border-color:#111; }
+.modal-actions { display:flex; gap:10px; justify-content:flex-end; }
 .modal-actions button {
-  padding: 8px 20px; font-family: 'Space Mono', monospace;
-  font-size: 11px; letter-spacing: 1px; cursor: pointer;
-  border: 1px solid var(--border); background: #fff; transition: all 0.15s;
+  padding:8px 20px; font-family:'Space Mono',monospace; font-size:11px;
+  letter-spacing:1px; cursor:pointer; border:1px solid var(--border);
+  background:#fff; transition:all .15s;
 }
-.modal-actions button.primary { background: #111; color: #fff; border-color: #111; }
-.modal-actions button:hover { opacity: 0.8; }
+.modal-actions button.primary { background:#111; color:#fff; border-color:#111; }
+.modal-actions button:hover { opacity:.8; }
 
-/* ==================== CALENDAR SCREEN ==================== */
-.calendar-screen { display: none; }
-.calendar-screen.active { display: block; }
+/* ===== SHARED LINK BANNER ===== */
+.shared-banner {
+  background:#f0f8ff; border-bottom:1px solid #cde; padding:10px 28px;
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:12px; color:#456;
+}
+.shared-banner.hidden { display:none; }
+.shared-banner button {
+  background:#111; color:#fff; border:none; padding:6px 16px;
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px;
+  cursor:pointer; transition:all .15s;
+}
+.shared-banner button:hover { background:#333; }
 
+/* ===== CALENDAR SCREEN ===== */
+.calendar-screen { display:none; }
+.calendar-screen.active { display:block; }
 .page-header {
-  padding: 18px 28px;
-  border-bottom: 2px solid #111;
-  display: flex; justify-content: space-between; align-items: center;
+  padding:18px 28px; border-bottom:2px solid #111;
+  display:flex; justify-content:space-between; align-items:center;
 }
-.header-left { display: flex; align-items: center; gap: 14px; }
+.header-left { display:flex; align-items:center; gap:14px; }
 .back-btn {
-  width: 30px; height: 30px; border: 1px solid var(--border);
-  background: #fff; cursor: pointer; display: flex;
-  align-items: center; justify-content: center; font-size: 15px;
-  transition: all 0.15s; flex-shrink: 0;
+  width:30px; height:30px; border:1px solid var(--border); background:#fff;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  font-size:15px; transition:all .15s; flex-shrink:0;
 }
-.back-btn:hover { border-color: #111; }
+.back-btn:hover { border-color:#111; }
 .header-titles h1 {
-  font-family: 'Space Mono', monospace; font-size: 16px;
-  font-weight: 700; letter-spacing: 3px; text-transform: uppercase; line-height: 1.2;
+  font-family:'Space Mono',monospace; font-size:16px; font-weight:700;
+  letter-spacing:3px; text-transform:uppercase; line-height:1.2;
 }
-.header-titles .subtitle {
-  font-size: 10px; color: #999; letter-spacing: 1px; margin-top: 2px;
-}
-.header-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.header-titles .subtitle { font-size:10px; color:#999; letter-spacing:1px; margin-top:2px; }
+.header-actions { display:flex; gap:8px; flex-shrink:0; }
 .action-btn {
-  background: #fff; color: #111; border: 1px solid var(--border);
-  padding: 8px 16px; font-family: 'Space Mono', monospace;
-  font-size: 10px; letter-spacing: 1px; cursor: pointer;
-  transition: all 0.15s; display: flex; align-items: center; gap: 5px;
+  background:#fff; color:#111; border:1px solid var(--border);
+  padding:8px 16px; font-family:'Space Mono',monospace; font-size:10px;
+  letter-spacing:1px; cursor:pointer; transition:all .15s;
+  display:flex; align-items:center; gap:5px;
 }
-.action-btn:hover { border-color: #111; }
-.action-btn.primary { background: #111; color: #fff; border-color: #111; }
-.action-btn.primary:hover { background: #333; }
+.action-btn:hover { border-color:#111; }
+.action-btn.primary { background:#111; color:#fff; border-color:#111; }
+.action-btn.primary:hover { background:#333; }
 .copy-toast {
-  position: fixed; bottom: 24px; left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  background: #111; color: #fff; padding: 10px 24px;
-  font-family: 'Space Mono', monospace; font-size: 12px;
-  letter-spacing: 1px; z-index: 9999;
-  transition: transform 0.3s ease; pointer-events: none;
+  position:fixed; bottom:24px; left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:#111; color:#fff; padding:10px 24px;
+  font-family:'Space Mono',monospace; font-size:12px; letter-spacing:1px;
+  z-index:9999; transition:transform .3s ease; pointer-events:none;
 }
-.copy-toast.show { transform: translateX(-50%) translateY(0); }
+.copy-toast.show { transform:translateX(-50%) translateY(0); }
 
-/* MAIN LAYOUT */
-.main-container { display: flex; min-height: calc(100vh - 70px); }
+/* ===== MAIN LAYOUT ===== */
+.main-container { display:flex; min-height:calc(100vh - 70px); }
+.calendar-area { flex:1; padding:18px 22px; overflow-y:auto; }
+.calendar-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
 
-/* CALENDAR */
-.calendar-area { flex: 1; padding: 18px 22px; overflow-y: auto; }
-.calendar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-
-.month-block { border: 1px solid var(--border); }
+/* ===== MONTH ===== */
+.month-block { border:1px solid var(--border); }
 .month-title {
-  font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase; padding: 6px 10px;
-  background: var(--header-bg); border-bottom: 1px solid var(--border);
+  font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase; padding:6px 10px;
+  background:var(--header-bg); border-bottom:1px solid var(--border);
 }
-.day-headers { display: grid; grid-template-columns: repeat(7, 1fr); border-bottom: 1px solid var(--border); }
+.day-headers { display:grid; grid-template-columns:repeat(7,1fr); border-bottom:1px solid var(--border); }
 .day-header {
-  font-size: 8px; font-weight: 600; color: var(--day-header);
-  text-align: center; padding: 3px 0; text-transform: uppercase; letter-spacing: 1px;
+  font-size:8px; font-weight:600; color:var(--day-header);
+  text-align:center; padding:3px 0; text-transform:uppercase; letter-spacing:1px;
 }
-.days-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.days-grid { display:grid; grid-template-columns:repeat(7,1fr); }
 .day-cell {
-  aspect-ratio: 1; border-right: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0;
-  position: relative; display: flex; flex-direction: column; align-items: center;
-  padding-top: 2px; min-height: 42px; cursor: default; transition: background 0.15s;
+  aspect-ratio:1; border-right:1px solid #f0f0f0; border-bottom:1px solid #f0f0f0;
+  position:relative; display:flex; flex-direction:column; align-items:center;
+  padding-top:2px; min-height:42px; cursor:default; transition:background .15s;
 }
-.day-cell.droppable { transition: background 0.15s; }
-.day-cell.drag-over { outline: 2px solid #111; outline-offset: -2px; }
+.day-cell.droppable { transition:background .15s; }
+.day-cell.drag-over { outline:2px solid #111; outline-offset:-2px; }
 .day-cell .day-number {
-  font-size: 10px; font-weight: 500; line-height: 1; color: var(--text);
-  position: relative; z-index: 1;
+  font-size:10px; font-weight:500; line-height:1; color:var(--text);
+  position:relative; z-index:1;
 }
-.day-cell.outside .day-number { color: var(--outside); }
-.day-cell.holiday { background: var(--holiday-bg); }
+.day-cell.outside .day-number { color:var(--outside); }
+.day-cell.holiday { background:var(--holiday-bg); }
 .day-cell .icons-container {
-  display: flex; flex-wrap: wrap; gap: 2px; justify-content: center;
-  margin-top: 2px; position: relative; z-index: 1;
+  display:flex; flex-wrap:wrap; gap:2px; justify-content:center;
+  margin-top:2px; position:relative; z-index:1;
 }
 .day-cell .cell-icon {
-  width: 12px; height: 12px; border-radius: 50%; cursor: pointer;
-  transition: transform 0.15s, opacity 0.15s; box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  width:12px; height:12px; border-radius:50%; cursor:pointer;
+  transition:transform .15s,opacity .15s; box-shadow:0 1px 2px rgba(0,0,0,.15);
 }
-.day-cell .cell-icon:hover { transform: scale(1.3); opacity: 0.8; }
+.day-cell .cell-icon:hover { transform:scale(1.3); opacity:.8; }
 
-/* ==================== LEGEND ==================== */
+/* ===== LEGEND ===== */
 .legend-panel {
-  width: 270px; min-width: 270px; border-left: 2px solid #111;
-  background: var(--legend-bg); display: flex; flex-direction: column;
+  width:270px; min-width:270px; border-left:2px solid #111;
+  background:var(--legend-bg); display:flex; flex-direction:column;
 }
 .legend-header {
-  font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
-  letter-spacing: 2px; text-transform: uppercase; padding: 12px 16px 9px;
-  border-bottom: 1px solid var(--border);
+  font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase; padding:12px 16px 9px;
+  border-bottom:1px solid var(--border);
 }
-.legend-items { flex: 1; overflow-y: auto; padding: 8px 12px; }
+.legend-items { flex:1; overflow-y:auto; padding:8px 12px; }
 .legend-section-title {
-  font-size: 9px; font-weight: 600; letter-spacing: 1.5px;
-  text-transform: uppercase; color: #aaa; padding: 10px 6px 4px;
+  font-size:9px; font-weight:600; letter-spacing:1.5px;
+  text-transform:uppercase; color:#aaa; padding:10px 6px 4px;
 }
 .legend-item {
-  display: flex; align-items: center; gap: 8px; padding: 5px 6px;
-  border-radius: 5px; margin-bottom: 2px; cursor: grab;
-  transition: background 0.15s; position: relative;
+  display:flex; align-items:center; gap:8px; padding:5px 6px;
+  border-radius:5px; margin-bottom:2px; cursor:grab;
+  transition:background .15s; position:relative;
 }
-.legend-item:hover { background: #eee; }
-.legend-item.dragging { opacity: 0.5; }
+.legend-item:hover { background:#eee; }
+.legend-item.dragging { opacity:.5; }
 .legend-color {
-  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
-  cursor: pointer; position: relative; border: 2px solid transparent;
-  transition: border-color 0.2s;
+  width:18px; height:18px; border-radius:50%; flex-shrink:0;
+  cursor:pointer; position:relative; border:2px solid transparent;
+  transition:border-color .2s;
 }
-.legend-color:hover { border-color: #999; }
+.legend-color:hover { border-color:#999; }
 .legend-color input[type="color"] {
-  position: absolute; width: 100%; height: 100%; opacity: 0;
-  cursor: pointer; top: 0; left: 0;
+  position:absolute; width:100%; height:100%; opacity:0;
+  cursor:pointer; top:0; left:0;
 }
-.legend-color.square { border-radius: 3px; }
+.legend-color.square { border-radius:3px; }
 .legend-name {
-  font-size: 11px; font-weight: 500; flex: 1; border: none;
-  background: transparent; font-family: 'DM Sans', sans-serif;
-  outline: none; padding: 2px 4px; border-radius: 3px; min-width: 0;
+  font-size:11px; font-weight:500; flex:1; border:none;
+  background:transparent; font-family:'DM Sans',sans-serif;
+  outline:none; padding:2px 4px; border-radius:3px; min-width:0;
 }
-.legend-name:focus { background: #fff; box-shadow: 0 0 0 1px var(--border); }
+.legend-name:focus { background:#fff; box-shadow:0 0 0 1px var(--border); }
 .legend-delete {
-  width: 16px; height: 16px; border: none; background: transparent;
-  color: #bbb; font-size: 13px; cursor: pointer; display: flex;
-  align-items: center; justify-content: center; border-radius: 50%;
-  opacity: 0; transition: all 0.15s; flex-shrink: 0;
+  width:16px; height:16px; border:none; background:transparent;
+  color:#bbb; font-size:13px; cursor:pointer; display:flex;
+  align-items:center; justify-content:center; border-radius:50%;
+  opacity:0; transition:all .15s; flex-shrink:0;
 }
-.legend-item:hover .legend-delete { opacity: 1; }
-.legend-delete:hover { background: #ddd; color: #666; }
-
+.legend-item:hover .legend-delete { opacity:1; }
+.legend-delete:hover { background:#ddd; color:#666; }
 .add-legend-btn {
-  display: flex; align-items: center; gap: 6px; padding: 7px 6px;
-  margin: 3px 0; border: 1px dashed #ccc; border-radius: 5px;
-  background: transparent; cursor: pointer; font-family: 'DM Sans', sans-serif;
-  font-size: 11px; color: #999; width: 100%; transition: all 0.15s;
+  display:flex; align-items:center; gap:6px; padding:7px 6px;
+  margin:3px 0; border:1px dashed #ccc; border-radius:5px;
+  background:transparent; cursor:pointer; font-family:'DM Sans',sans-serif;
+  font-size:11px; color:#999; width:100%; transition:all .15s;
 }
-.add-legend-btn:hover { border-color: #999; color: #666; background: #f5f5f5; }
-
+.add-legend-btn:hover { border-color:#999; color:#666; background:#f5f5f5; }
 .holiday-legend-static {
-  display: flex; align-items: center; gap: 8px; padding: 5px 6px;
-  font-size: 11px; color: #888;
+  display:flex; align-items:center; gap:8px; padding:5px 6px;
+  font-size:11px; color:#888;
 }
 .holiday-swatch {
-  width: 18px; height: 18px; border-radius: 3px;
-  background: var(--holiday-bg); border: 1px solid #ddd; flex-shrink: 0;
+  width:18px; height:18px; border-radius:3px;
+  background:var(--holiday-bg); border:1px solid #ddd; flex-shrink:0;
 }
-
 .instructions {
-  padding: 12px 16px; border-top: 1px solid var(--border);
-  font-size: 9px; color: #aaa; line-height: 1.6;
+  padding:12px 16px; border-top:1px solid var(--border);
+  font-size:9px; color:#aaa; line-height:1.6;
 }
-.instructions strong { color: #888; }
-
+.instructions strong { color:#888; }
 .export-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.4);
-  display: flex; align-items: center; justify-content: center; z-index: 10000;
+  position:fixed; inset:0; background:rgba(0,0,0,.4);
+  display:flex; align-items:center; justify-content:center; z-index:10000;
 }
 .export-overlay .msg {
-  background: #fff; padding: 24px 40px;
-  font-family: 'Space Mono', monospace; font-size: 14px;
+  background:#fff; padding:24px 40px;
+  font-family:'Space Mono',monospace; font-size:14px;
 }
-
-@media (max-width: 1200px) { .calendar-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 900px) {
-  .main-container { flex-direction: column; }
-  .legend-panel { width: 100%; min-width: 100%; border-left: none; border-top: 2px solid #111; }
-  .calendar-grid { grid-template-columns: repeat(2, 1fr); }
-  .header-actions { flex-wrap: wrap; }
+@media(max-width:1200px){.calendar-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:900px){
+  .main-container{flex-direction:column;}
+  .legend-panel{width:100%;min-width:100%;border-left:none;border-top:2px solid #111;}
+  .calendar-grid{grid-template-columns:repeat(2,1fr);}
+  .header-actions{flex-wrap:wrap;}
 }
 </style>
 </head>
@@ -355,6 +282,11 @@ body {
 
 <!-- CALENDAR SCREEN -->
 <div class="calendar-screen" id="calendarScreen">
+  <!-- Shared link banner -->
+  <div class="shared-banner hidden" id="sharedBanner">
+    <span>You're viewing a shared calendar. Changes won't sync back to the sender.</span>
+    <button onclick="saveSharedToLocal()">SAVE TO MY PROJECTS</button>
+  </div>
   <div class="page-header">
     <div class="header-left">
       <button class="back-btn" onclick="goBack()" title="Back to projects">&#8592;</button>
@@ -366,7 +298,7 @@ body {
     <div class="header-actions">
       <button class="action-btn" onclick="copyURL()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        COPY URL
+        SHARE URL
       </button>
       <button class="action-btn primary" onclick="exportCalendar()">EXPORT PNG</button>
     </div>
@@ -400,13 +332,13 @@ body {
         Click color circles to change colors.<br>
         Click names to rename.<br>
         Double-click dot or filled cell to remove.<br>
-        All changes auto-saved.
+        Click <strong>SHARE URL</strong> to send calendar to others.
       </div>
     </div>
   </div>
 </div>
 
-<div class="copy-toast" id="copyToast">URL COPIED</div>
+<div class="copy-toast" id="copyToast">SHARE LINK COPIED</div>
 
 <script>
 // ==================== CONSTANTS ====================
@@ -433,40 +365,69 @@ const DEFAULT_ICONS = [
   {id:'steer',name:'Project Steering Meetings',color:'#f0a08a'},
 ];
 const DEFAULT_HOLIDAYS = [{id:'spring_break',name:'Spring Break',color:'#d5d5d5'}];
-const MASTER_KEY = 'payette_projects';
+const MASTER_KEY = 'payette_projects_v2';
 
 // ==================== STATE ====================
 let allProjects = [];
 let currentProjectId = null;
+let currentProjectName = '';
+let isSharedView = false; // true when opened from shared URL without local project
+
 let icons = [], customHolidays = [], calendarData = {}, holidayData = {};
 let nextIconId = 1, nextHolidayId = 1;
 
 // ==================== PERSISTENCE ====================
 function loadProjects() {
-  try { const r = localStorage.getItem(MASTER_KEY); if(r) allProjects = JSON.parse(r); } catch(e) { allProjects=[]; }
+  try { const r=localStorage.getItem(MASTER_KEY); if(r) allProjects=JSON.parse(r); } catch(e){ allProjects=[]; }
 }
-function saveProjects() { localStorage.setItem(MASTER_KEY, JSON.stringify(allProjects)); }
-function pKey(id) { return 'payette_proj_' + id; }
+function saveProjects() { try{localStorage.setItem(MASTER_KEY,JSON.stringify(allProjects));}catch(e){} }
+function pKey(id) { return 'payette_p_'+id; }
+
 function save() {
   if(!currentProjectId) return;
-  try { localStorage.setItem(pKey(currentProjectId), JSON.stringify({icons,customHolidays,calendarData,holidayData,nextIconId,nextHolidayId})); }
-  catch(e) { console.warn('Save failed',e); }
+  try { localStorage.setItem(pKey(currentProjectId), JSON.stringify(getSnapshot())); } catch(e){}
 }
+
+function getSnapshot() {
+  return {name:currentProjectName,icons,customHolidays,calendarData,holidayData,nextIconId,nextHolidayId};
+}
+
+function applySnapshot(snap) {
+  icons = snap.icons || JSON.parse(JSON.stringify(DEFAULT_ICONS));
+  customHolidays = snap.customHolidays || JSON.parse(JSON.stringify(DEFAULT_HOLIDAYS));
+  calendarData = snap.calendarData || {};
+  holidayData = snap.holidayData || {};
+  nextIconId = snap.nextIconId || 1;
+  nextHolidayId = snap.nextHolidayId || 1;
+  currentProjectName = snap.name || 'Untitled';
+}
+
 function loadProjectData(pid) {
   icons = JSON.parse(JSON.stringify(DEFAULT_ICONS));
   customHolidays = JSON.parse(JSON.stringify(DEFAULT_HOLIDAYS));
-  calendarData = {}; holidayData = {}; nextIconId = 1; nextHolidayId = 1;
+  calendarData = {}; holidayData = {}; nextIconId=1; nextHolidayId=1;
   try {
-    const r = localStorage.getItem(pKey(pid));
+    const r=localStorage.getItem(pKey(pid));
     if(!r) return;
-    const p = JSON.parse(r);
-    if(p.icons) icons=p.icons;
-    if(p.customHolidays) customHolidays=p.customHolidays;
-    if(p.calendarData) calendarData=p.calendarData;
-    if(p.holidayData) holidayData=p.holidayData;
-    if(p.nextIconId) nextIconId=p.nextIconId;
-    if(p.nextHolidayId) nextHolidayId=p.nextHolidayId;
-  } catch(e) { console.warn('Load failed',e); }
+    const p=JSON.parse(r);
+    applySnapshot(p);
+  } catch(e){}
+}
+
+// ==================== URL ENCODING (share data via URL) ====================
+function encodeDataToURL() {
+  const snap = getSnapshot();
+  const json = JSON.stringify(snap);
+  const compressed = LZString.compressToEncodedURIComponent(json);
+  return compressed;
+}
+
+function decodeDataFromURL(encoded) {
+  try {
+    const json = LZString.decompressFromEncodedURIComponent(encoded);
+    if(!json) return null;
+    return JSON.parse(json);
+  } catch(e) { return null; }
 }
 
 // ==================== PROJECT SELECTOR ====================
@@ -481,7 +442,14 @@ function renderProjects() {
     const del = document.createElement('button');
     del.className = 'project-card-delete';
     del.innerHTML = '&times;';
-    del.onclick = e => { e.stopPropagation(); if(confirm('Delete "'+proj.name+'"? Cannot be undone.')){localStorage.removeItem(pKey(proj.id)); allProjects=allProjects.filter(p=>p.id!==proj.id); saveProjects(); renderProjects();} };
+    del.onclick = e => {
+      e.stopPropagation();
+      if(confirm('Delete "'+proj.name+'"? Cannot be undone.')) {
+        localStorage.removeItem(pKey(proj.id));
+        allProjects=allProjects.filter(p=>p.id!==proj.id);
+        saveProjects(); renderProjects();
+      }
+    };
     card.appendChild(del);
     list.appendChild(card);
   });
@@ -491,270 +459,258 @@ function renderProjects() {
   add.innerHTML = '<div class="plus">+</div><span>New Project</span>';
   list.appendChild(add);
 }
-function showModal() { document.getElementById('newProjectModal').classList.remove('hidden'); document.getElementById('newProjectName').value=''; document.getElementById('newProjectName').focus(); }
+
+function showModal() {
+  document.getElementById('newProjectModal').classList.remove('hidden');
+  const inp=document.getElementById('newProjectName'); inp.value=''; inp.focus();
+}
 function closeModal() { document.getElementById('newProjectModal').classList.add('hidden'); }
 function confirmNewProject() {
-  const name = document.getElementById('newProjectName').value.trim();
+  const name=document.getElementById('newProjectName').value.trim();
   if(!name) return;
-  const id = 'proj_'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
+  const id='p'+Date.now()+''+Math.random().toString(36).slice(2,5);
   allProjects.push({id,name,createdAt:Date.now()});
   saveProjects(); closeModal(); openProject(id);
 }
-document.getElementById('newProjectName').addEventListener('keydown', e => { if(e.key==='Enter') confirmNewProject(); if(e.key==='Escape') closeModal(); });
+document.getElementById('newProjectName').addEventListener('keydown',e=>{
+  if(e.key==='Enter') confirmNewProject();
+  if(e.key==='Escape') closeModal();
+});
 
 function openProject(pid) {
   currentProjectId = pid;
+  isSharedView = false;
   loadProjectData(pid);
   const proj = allProjects.find(p=>p.id===pid);
-  document.getElementById('calendarTitle').textContent = 'PAYETTE — '+(proj?proj.name.toUpperCase():'');
+  currentProjectName = proj ? proj.name : currentProjectName;
+  showCalendar();
+}
+
+function openSharedData(snap) {
+  currentProjectId = null;
+  isSharedView = true;
+  applySnapshot(snap);
+  showCalendar();
+}
+
+function showCalendar() {
+  document.getElementById('calendarTitle').textContent = 'PAYETTE — '+currentProjectName.toUpperCase();
   document.getElementById('calendarSubtitle').textContent = '2026 SPACE STRATEGY CALENDAR';
-  history.replaceState(null,'','#'+pid);
+  document.getElementById('sharedBanner').classList.toggle('hidden', !isSharedView);
   document.getElementById('projectScreen').classList.add('hidden');
   document.getElementById('calendarScreen').classList.add('active');
   renderCalendar(); renderLegend();
 }
+
 function goBack() {
   currentProjectId = null;
-  history.replaceState(null,'',location.pathname);
+  isSharedView = false;
+  // Clear hash
+  history.replaceState(null,'',location.pathname+location.search);
   document.getElementById('calendarScreen').classList.remove('active');
   document.getElementById('projectScreen').classList.remove('hidden');
+  document.getElementById('sharedBanner').classList.add('hidden');
   renderProjects();
+}
+
+function saveSharedToLocal() {
+  // Save the current shared view as a local project
+  const id='p'+Date.now()+''+Math.random().toString(36).slice(2,5);
+  allProjects.push({id, name:currentProjectName, createdAt:Date.now()});
+  saveProjects();
+  currentProjectId = id;
+  isSharedView = false;
+  save();
+  document.getElementById('sharedBanner').classList.add('hidden');
+  toast('SAVED TO YOUR PROJECTS');
 }
 
 // ==================== CALENDAR ====================
 function renderCalendar() {
-  const grid = document.getElementById('calendarGrid');
-  grid.innerHTML = '';
+  const grid=document.getElementById('calendarGrid');
+  grid.innerHTML='';
   MONTHS_2026.forEach(m => {
-    const block = document.createElement('div');
-    block.className = 'month-block';
-    const title = document.createElement('div');
-    title.className = 'month-title';
-    title.textContent = m.name+' '+m.year;
-    block.appendChild(title);
-    const dh = document.createElement('div');
-    dh.className = 'day-headers';
-    DAY_NAMES.forEach(d => { const el=document.createElement('div'); el.className='day-header'; el.textContent=d; dh.appendChild(el); });
+    const block=document.createElement('div'); block.className='month-block';
+    const title=document.createElement('div'); title.className='month-title';
+    title.textContent=m.name+' '+m.year; block.appendChild(title);
+    const dh=document.createElement('div'); dh.className='day-headers';
+    DAY_NAMES.forEach(d=>{const el=document.createElement('div');el.className='day-header';el.textContent=d;dh.appendChild(el);});
     block.appendChild(dh);
-    const dg = document.createElement('div');
-    dg.className = 'days-grid';
-    const fd = new Date(m.year,m.month,1).getDay();
-    const dim = new Date(m.year,m.month+1,0).getDate();
-    const pd = new Date(m.year,m.month,0).getDate();
+    const dg=document.createElement('div'); dg.className='days-grid';
+    const fd=new Date(m.year,m.month,1).getDay();
+    const dim=new Date(m.year,m.month+1,0).getDate();
+    const pd=new Date(m.year,m.month,0).getDate();
     for(let i=0;i<fd;i++) dg.appendChild(mkCell(pd-fd+1+i,true,null));
-    for(let d=1;d<=dim;d++) { const k=`${m.year}-${m.month}-${d}`; dg.appendChild(mkCell(d,false,k,FEDERAL_HOLIDAYS[k])); }
-    const tot=fd+dim; const rem=Math.ceil(tot/7)*7-tot;
+    for(let d=1;d<=dim;d++){const k=`${m.year}-${m.month}-${d}`;dg.appendChild(mkCell(d,false,k,FEDERAL_HOLIDAYS[k]));}
+    const tot=fd+dim;const rem=Math.ceil(tot/7)*7-tot;
     for(let i=1;i<=rem;i++) dg.appendChild(mkCell(i,true,null));
-    block.appendChild(dg);
-    grid.appendChild(block);
+    block.appendChild(dg); grid.appendChild(block);
   });
 }
 
-function mkCell(day, outside, key, fedHoliday) {
-  const cell = document.createElement('div');
-  cell.className = 'day-cell'+(outside?' outside':'')+(fedHoliday?' holiday':'');
+function mkCell(day,outside,key,fedHoliday) {
+  const cell=document.createElement('div');
+  cell.className='day-cell'+(outside?' outside':'')+(fedHoliday?' holiday':'');
   if(key) {
-    cell.className += ' droppable';
-    cell.dataset.key = key;
+    cell.className+=' droppable'; cell.dataset.key=key;
     applyBg(cell,key);
-
-    cell.addEventListener('dragover', e => { e.preventDefault(); cell.classList.add('drag-over'); });
-    cell.addEventListener('dragleave', () => cell.classList.remove('drag-over'));
-    cell.addEventListener('drop', e => {
-      e.preventDefault(); cell.classList.remove('drag-over');
-      const raw = e.dataTransfer.getData('text/plain');
+    cell.addEventListener('dragover',e=>{e.preventDefault();cell.classList.add('drag-over');});
+    cell.addEventListener('dragleave',()=>cell.classList.remove('drag-over'));
+    cell.addEventListener('drop',e=>{
+      e.preventDefault();cell.classList.remove('drag-over');
+      const raw=e.dataTransfer.getData('text/plain');
       if(!raw) return;
-      if(raw.startsWith('hol:')) {
-        const hId = raw.slice(4);
-        if(customHolidays.find(h=>h.id===hId)) { holidayData[key]=hId; save(); applyBg(cell,key); }
+      if(raw.startsWith('hol:')){
+        const hId=raw.slice(4);
+        if(customHolidays.find(h=>h.id===hId)){holidayData[key]=hId;save();applyBg(cell,key);}
         return;
       }
-      if(icons.find(ic=>ic.id===raw)) {
+      if(icons.find(ic=>ic.id===raw)){
         if(!calendarData[key]) calendarData[key]=[];
-        calendarData[key].push(raw); save(); renderDots(cell,key);
+        calendarData[key].push(raw);save();renderDots(cell,key);
       }
     });
-
-    cell.addEventListener('dblclick', e => {
-      if(e.target===cell || e.target.classList.contains('day-number')) {
-        if(holidayData[key]) { delete holidayData[key]; save(); applyBg(cell,key); }
+    cell.addEventListener('dblclick',e=>{
+      if(e.target===cell||e.target.classList.contains('day-number')){
+        if(holidayData[key]){delete holidayData[key];save();applyBg(cell,key);}
       }
     });
-    if(fedHoliday) cell.title = fedHoliday;
+    if(fedHoliday) cell.title=fedHoliday;
   }
-  const num = document.createElement('div');
-  num.className = 'day-number';
-  num.textContent = day;
-  cell.appendChild(num);
-  if(key) {
-    const c = document.createElement('div');
-    c.className = 'icons-container';
-    cell.appendChild(c);
-    renderDots(cell,key);
-  }
+  const num=document.createElement('div');num.className='day-number';num.textContent=day;cell.appendChild(num);
+  if(key){const c=document.createElement('div');c.className='icons-container';cell.appendChild(c);renderDots(cell,key);}
   return cell;
 }
 
-function applyBg(cell, key) {
-  const hId = holidayData[key];
-  if(hId) {
-    const h = customHolidays.find(x=>x.id===hId);
-    if(h) { cell.style.background=h.color; cell.title=h.name; return; }
-  }
-  cell.style.background = '';
-  cell.title = FEDERAL_HOLIDAYS[key]||'';
+function applyBg(cell,key) {
+  const hId=holidayData[key];
+  if(hId){const h=customHolidays.find(x=>x.id===hId);if(h){cell.style.background=h.color;cell.title=h.name;return;}}
+  cell.style.background='';cell.title=FEDERAL_HOLIDAYS[key]||'';
 }
 
-function renderDots(cell, key) {
-  const c = cell.querySelector('.icons-container');
-  if(!c) return;
-  c.innerHTML = '';
-  (calendarData[key]||[]).forEach((iconId,idx) => {
-    const icon = icons.find(ic=>ic.id===iconId);
-    if(!icon) return;
-    const dot = document.createElement('div');
-    dot.className = 'cell-icon';
-    dot.style.background = icon.color;
-    dot.title = icon.name;
-    dot.addEventListener('dblclick', e => {
-      e.preventDefault(); e.stopPropagation();
+function renderDots(cell,key) {
+  const c=cell.querySelector('.icons-container');if(!c)return;c.innerHTML='';
+  (calendarData[key]||[]).forEach((iconId,idx)=>{
+    const icon=icons.find(ic=>ic.id===iconId);if(!icon)return;
+    const dot=document.createElement('div');dot.className='cell-icon';
+    dot.style.background=icon.color;dot.title=icon.name;
+    dot.addEventListener('dblclick',e=>{
+      e.preventDefault();e.stopPropagation();
       calendarData[key].splice(idx,1);
       if(calendarData[key].length===0) delete calendarData[key];
-      save(); renderDots(cell,key);
+      save();renderDots(cell,key);
     });
     c.appendChild(dot);
   });
 }
 
 // ==================== LEGEND ====================
-function renderLegend() { renderHolLegend(); renderIconLegend(); }
+function renderLegend(){renderHolLegend();renderIconLegend();}
 
-function renderHolLegend() {
-  const ct = document.getElementById('holidayLegend');
-  ct.innerHTML = '';
-  customHolidays.forEach(h => {
-    const item = document.createElement('div');
-    item.className = 'legend-item';
-    item.draggable = true;
-    item.addEventListener('dragstart', e => {
-      e.dataTransfer.setData('text/plain','hol:'+h.id);
-      item.classList.add('dragging');
+function renderHolLegend(){
+  const ct=document.getElementById('holidayLegend');ct.innerHTML='';
+  customHolidays.forEach(h=>{
+    const item=document.createElement('div');item.className='legend-item';item.draggable=true;
+    item.addEventListener('dragstart',e=>{
+      e.dataTransfer.setData('text/plain','hol:'+h.id);item.classList.add('dragging');
       const g=document.createElement('div');
       g.style.cssText=`width:24px;height:24px;border-radius:3px;background:${h.color};position:fixed;top:-100px;`;
-      document.body.appendChild(g);
-      e.dataTransfer.setDragImage(g,12,12);
-      setTimeout(()=>g.remove(),0);
+      document.body.appendChild(g);e.dataTransfer.setDragImage(g,12,12);setTimeout(()=>g.remove(),0);
     });
     item.addEventListener('dragend',()=>item.classList.remove('dragging'));
-
-    const cw = document.createElement('div');
-    cw.className = 'legend-color square';
-    cw.style.background = h.color;
-    const ci = document.createElement('input');
-    ci.type='color'; ci.value=h.color;
-    ci.addEventListener('input', e => { h.color=e.target.value; cw.style.background=e.target.value; save(); refreshBgs(); });
-    cw.appendChild(ci); item.appendChild(cw);
-
-    const ni = document.createElement('input');
-    ni.className='legend-name'; ni.value=h.name;
-    ni.addEventListener('change', e=>{h.name=e.target.value; save();});
+    const cw=document.createElement('div');cw.className='legend-color square';cw.style.background=h.color;
+    const ci=document.createElement('input');ci.type='color';ci.value=h.color;
+    ci.addEventListener('input',e=>{h.color=e.target.value;cw.style.background=e.target.value;save();refreshBgs();});
+    cw.appendChild(ci);item.appendChild(cw);
+    const ni=document.createElement('input');ni.className='legend-name';ni.value=h.name;
+    ni.addEventListener('change',e=>{h.name=e.target.value;save();});
     ni.addEventListener('mousedown',e=>e.stopPropagation());
     ni.addEventListener('dragstart',e=>e.preventDefault());
     item.appendChild(ni);
-
-    const del = document.createElement('button');
-    del.className='legend-delete'; del.innerHTML='&times;';
+    const del=document.createElement('button');del.className='legend-delete';del.innerHTML='&times;';
     del.addEventListener('click',()=>{
       customHolidays=customHolidays.filter(x=>x.id!==h.id);
       Object.keys(holidayData).forEach(k=>{if(holidayData[k]===h.id) delete holidayData[k];});
-      save(); renderHolLegend(); renderCalendar();
+      save();renderHolLegend();renderCalendar();
     });
-    item.appendChild(del);
-    ct.appendChild(item);
+    item.appendChild(del);ct.appendChild(item);
   });
 }
 
-function renderIconLegend() {
-  const ct = document.getElementById('iconLegend');
-  ct.innerHTML = '';
-  icons.forEach(icon => {
-    const item = document.createElement('div');
-    item.className = 'legend-item';
-    item.draggable = true;
-    item.addEventListener('dragstart', e => {
-      e.dataTransfer.setData('text/plain',icon.id);
-      item.classList.add('dragging');
+function renderIconLegend(){
+  const ct=document.getElementById('iconLegend');ct.innerHTML='';
+  icons.forEach(icon=>{
+    const item=document.createElement('div');item.className='legend-item';item.draggable=true;
+    item.addEventListener('dragstart',e=>{
+      e.dataTransfer.setData('text/plain',icon.id);item.classList.add('dragging');
       const g=document.createElement('div');
       g.style.cssText=`width:20px;height:20px;border-radius:50%;background:${icon.color};position:fixed;top:-100px;`;
-      document.body.appendChild(g);
-      e.dataTransfer.setDragImage(g,10,10);
-      setTimeout(()=>g.remove(),0);
+      document.body.appendChild(g);e.dataTransfer.setDragImage(g,10,10);setTimeout(()=>g.remove(),0);
     });
     item.addEventListener('dragend',()=>item.classList.remove('dragging'));
-
-    const cw = document.createElement('div');
-    cw.className = 'legend-color';
-    cw.style.background = icon.color;
-    const ci = document.createElement('input');
-    ci.type='color'; ci.value=icon.color;
-    ci.addEventListener('input', e=>{icon.color=e.target.value; cw.style.background=e.target.value; save(); refreshDots();});
-    cw.appendChild(ci); item.appendChild(cw);
-
-    const ni = document.createElement('input');
-    ni.className='legend-name'; ni.value=icon.name;
-    ni.addEventListener('change',e=>{icon.name=e.target.value; save(); refreshDots();});
+    const cw=document.createElement('div');cw.className='legend-color';cw.style.background=icon.color;
+    const ci=document.createElement('input');ci.type='color';ci.value=icon.color;
+    ci.addEventListener('input',e=>{icon.color=e.target.value;cw.style.background=e.target.value;save();refreshDots();});
+    cw.appendChild(ci);item.appendChild(cw);
+    const ni=document.createElement('input');ni.className='legend-name';ni.value=icon.name;
+    ni.addEventListener('change',e=>{icon.name=e.target.value;save();refreshDots();});
     ni.addEventListener('mousedown',e=>e.stopPropagation());
     ni.addEventListener('dragstart',e=>e.preventDefault());
     item.appendChild(ni);
-
-    const del = document.createElement('button');
-    del.className='legend-delete'; del.innerHTML='&times;';
+    const del=document.createElement('button');del.className='legend-delete';del.innerHTML='&times;';
     del.addEventListener('click',()=>{
       icons=icons.filter(i=>i.id!==icon.id);
-      Object.keys(calendarData).forEach(k=>{calendarData[k]=calendarData[k].filter(id=>id!==icon.id); if(calendarData[k].length===0) delete calendarData[k];});
-      save(); renderIconLegend(); renderCalendar();
+      Object.keys(calendarData).forEach(k=>{calendarData[k]=calendarData[k].filter(id=>id!==icon.id);if(calendarData[k].length===0) delete calendarData[k];});
+      save();renderIconLegend();renderCalendar();
     });
-    item.appendChild(del);
-    ct.appendChild(item);
+    item.appendChild(del);ct.appendChild(item);
   });
 }
 
-function refreshDots() { document.querySelectorAll('.day-cell.droppable').forEach(c=>{const k=c.dataset.key; if(k) renderDots(c,k);}); }
-function refreshBgs() { document.querySelectorAll('.day-cell.droppable').forEach(c=>{const k=c.dataset.key; if(k) applyBg(c,k);}); }
+function refreshDots(){document.querySelectorAll('.day-cell.droppable').forEach(c=>{const k=c.dataset.key;if(k) renderDots(c,k);});}
+function refreshBgs(){document.querySelectorAll('.day-cell.droppable').forEach(c=>{const k=c.dataset.key;if(k) applyBg(c,k);});}
 
-function addNewIcon() {
+function addNewIcon(){
   const hue=Math.floor(Math.random()*360);
-  icons.push({id:'icon_'+ nextIconId++, name:'New Icon', color:`hsl(${hue},55%,60%)`});
-  save(); renderIconLegend();
+  icons.push({id:'i'+nextIconId++,name:'New Icon',color:`hsl(${hue},55%,60%)`});
+  save();renderIconLegend();
   const items=document.querySelectorAll('#iconLegend .legend-name');
   if(items.length) items[items.length-1].focus();
 }
-function addNewHoliday() {
-  customHolidays.push({id:'hol_'+ nextHolidayId++, name:'New Break', color:'#d5d5d5'});
-  save(); renderHolLegend();
+function addNewHoliday(){
+  customHolidays.push({id:'h'+nextHolidayId++,name:'New Break',color:'#d5d5d5'});
+  save();renderHolLegend();
   const items=document.querySelectorAll('#holidayLegend .legend-name');
   if(items.length) items[items.length-1].focus();
 }
 
-// ==================== COPY URL / EXPORT ====================
+// ==================== SHARE URL ====================
 function copyURL() {
-  navigator.clipboard.writeText(location.href).then(()=>{
-    const t=document.getElementById('copyToast'); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000);
-  }).catch(()=>prompt('Copy this URL:',location.href));
+  const encoded = encodeDataToURL();
+  const url = location.origin + location.pathname + '#data=' + encoded;
+  navigator.clipboard.writeText(url).then(()=>{
+    toast('SHARE LINK COPIED');
+  }).catch(()=>prompt('Copy this URL:',url));
 }
 
-async function exportCalendar() {
-  const ov=document.createElement('div'); ov.className='export-overlay';
-  ov.innerHTML='<div class="msg">Exporting...</div>';
-  document.body.appendChild(ov);
-  try {
+function toast(msg) {
+  const t=document.getElementById('copyToast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ==================== EXPORT ====================
+async function exportCalendar(){
+  const ov=document.createElement('div');ov.className='export-overlay';
+  ov.innerHTML='<div class="msg">Exporting...</div>';document.body.appendChild(ov);
+  try{
     const el=document.getElementById('captureArea');
     const canvas=await html2canvas(el,{scale:2,backgroundColor:'#ffffff',useCORS:true});
     const link=document.createElement('a');
-    const proj=allProjects.find(p=>p.id===currentProjectId);
-    link.download=`payette-${proj?proj.name.toLowerCase().replace(/\s+/g,'-'):'calendar'}-2026.png`;
-    link.href=canvas.toDataURL('image/png'); link.click();
-  } catch(err){ console.error(err); alert('Export failed.'); }
+    link.download=`payette-${currentProjectName.toLowerCase().replace(/\s+/g,'-')||'calendar'}-2026.png`;
+    link.href=canvas.toDataURL('image/png');link.click();
+  }catch(err){console.error(err);alert('Export failed.');}
   ov.remove();
 }
 
@@ -762,13 +718,24 @@ function esc(s){const d=document.createElement('div');d.textContent=s;return d.i
 
 // ==================== INIT ====================
 loadProjects();
-const hashId = location.hash.replace('#','');
-if(hashId && allProjects.find(p=>p.id===hashId)) { openProject(hashId); }
-else { renderProjects(); }
-window.addEventListener('hashchange',()=>{
-  const h=location.hash.replace('#','');
-  if(h && allProjects.find(p=>p.id===h)) openProject(h); else goBack();
-});
+
+// Check URL hash for shared data
+const hash = location.hash.replace('#','');
+if(hash.startsWith('data=')) {
+  // Shared link with embedded data
+  const encoded = hash.slice(5);
+  const snap = decodeDataFromURL(encoded);
+  if(snap) {
+    openSharedData(snap);
+  } else {
+    renderProjects();
+  }
+} else if(hash && allProjects.find(p=>p.id===hash)) {
+  // Legacy local project link
+  openProject(hash);
+} else {
+  renderProjects();
+}
 </script>
 </body>
 </html>
