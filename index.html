@@ -17,238 +17,246 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
 
 /* ===== PROJECT SCREEN ===== */
 .project-screen {
-  min-height:100vh; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; padding:60px 24px;
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:60px 24px;
 }
 .project-screen.hidden { display:none; }
 .project-logo {
-  font-family:'Space Mono',monospace; font-size:13px; font-weight:700;
-  letter-spacing:4px; text-transform:uppercase; color:#bbb; margin-bottom:8px;
+  font-family:'Space Mono',monospace;font-size:13px;font-weight:700;
+  letter-spacing:4px;text-transform:uppercase;color:#bbb;margin-bottom:8px;
 }
 .project-title {
-  font-family:'Space Mono',monospace; font-size:28px; font-weight:700;
-  letter-spacing:2px; margin-bottom:48px; text-align:center;
+  font-family:'Space Mono',monospace;font-size:28px;font-weight:700;
+  letter-spacing:2px;margin-bottom:12px;text-align:center;
+}
+.project-desc {
+  font-size:13px;color:#999;margin-bottom:48px;text-align:center;max-width:500px;line-height:1.6;
 }
 .project-list {
-  display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:16px; width:100%; max-width:860px; margin-bottom:24px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px;width:100%;max-width:860px;margin-bottom:24px;
 }
 .project-card {
-  border:1px solid var(--border); padding:24px; cursor:pointer;
-  transition:all .2s; position:relative; background:#fff;
+  border:1px solid var(--border);padding:24px;cursor:pointer;
+  transition:all .2s;position:relative;background:#fff;
 }
-.project-card:hover { border-color:#111; box-shadow:0 4px 20px rgba(0,0,0,.06); }
+.project-card:hover { border-color:#111;box-shadow:0 4px 20px rgba(0,0,0,.06); }
 .project-card-name {
-  font-family:'Space Mono',monospace; font-size:14px; font-weight:700;
-  letter-spacing:1px; margin-bottom:6px;
+  font-family:'Space Mono',monospace;font-size:14px;font-weight:700;
+  letter-spacing:1px;margin-bottom:6px;
 }
-.project-card-meta { font-size:11px; color:#999; }
+.project-card-meta { font-size:11px;color:#999; }
 .project-card-delete {
-  position:absolute; top:10px; right:12px; width:24px; height:24px;
-  border:none; background:transparent; color:#ccc; font-size:18px;
-  cursor:pointer; display:flex; align-items:center; justify-content:center;
-  border-radius:50%; opacity:0; transition:all .15s;
+  position:absolute;top:10px;right:12px;width:24px;height:24px;
+  border:none;background:transparent;color:#ccc;font-size:18px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;opacity:0;transition:all .15s;
 }
 .project-card:hover .project-card-delete { opacity:1; }
-.project-card-delete:hover { background:#eee; color:#666; }
+.project-card-delete:hover { background:#eee;color:#666; }
 .add-project-card {
-  border:2px dashed #ddd; padding:24px; cursor:pointer;
-  display:flex; flex-direction:column; align-items:center;
-  justify-content:center; gap:8px; color:#bbb; transition:all .2s; min-height:100px;
+  border:2px dashed #ddd;padding:24px;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8px;color:#bbb;transition:all .2s;min-height:100px;
 }
-.add-project-card:hover { border-color:#999; color:#666; }
-.add-project-card .plus { font-size:28px; line-height:1; }
-.add-project-card span { font-size:12px; font-weight:500; }
+.add-project-card:hover { border-color:#999;color:#666; }
+.add-project-card .plus { font-size:28px;line-height:1; }
+.add-project-card span { font-size:12px;font-weight:500; }
 
 /* ===== MODAL ===== */
 .modal-overlay {
-  position:fixed; inset:0; background:rgba(0,0,0,.35);
-  display:flex; align-items:center; justify-content:center; z-index:10000;
+  position:fixed;inset:0;background:rgba(0,0,0,.35);
+  display:flex;align-items:center;justify-content:center;z-index:10000;
 }
 .modal-overlay.hidden { display:none; }
-.modal-box { background:#fff; padding:32px; width:400px; max-width:90vw; box-shadow:0 20px 60px rgba(0,0,0,.15); }
-.modal-box h3 { font-family:'Space Mono',monospace; font-size:14px; letter-spacing:1px; margin-bottom:20px; }
-.modal-box input {
-  width:100%; padding:10px 14px; border:1px solid var(--border);
-  font-family:'DM Sans',sans-serif; font-size:14px; outline:none; margin-bottom:20px;
+.modal-box { background:#fff;padding:32px;width:420px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.15); }
+.modal-box h3 { font-family:'Space Mono',monospace;font-size:14px;letter-spacing:1px;margin-bottom:20px; }
+.modal-box input[type="text"] {
+  width:100%;padding:10px 14px;border:1px solid var(--border);
+  font-family:'DM Sans',sans-serif;font-size:14px;outline:none;margin-bottom:20px;
 }
 .modal-box input:focus { border-color:#111; }
-.modal-actions { display:flex; gap:10px; justify-content:flex-end; }
+.modal-actions { display:flex;gap:10px;justify-content:flex-end; }
 .modal-actions button {
-  padding:8px 20px; font-family:'Space Mono',monospace; font-size:11px;
-  letter-spacing:1px; cursor:pointer; border:1px solid var(--border);
-  background:#fff; transition:all .15s;
+  padding:8px 20px;font-family:'Space Mono',monospace;font-size:11px;
+  letter-spacing:1px;cursor:pointer;border:1px solid var(--border);
+  background:#fff;transition:all .15s;
 }
-.modal-actions button.primary { background:#111; color:#fff; border-color:#111; }
+.modal-actions button.primary { background:#111;color:#fff;border-color:#111; }
 .modal-actions button:hover { opacity:.8; }
 
-/* ===== SHARED LINK BANNER ===== */
-.shared-banner {
-  background:#f0f8ff; border-bottom:1px solid #cde; padding:10px 28px;
-  display:flex; align-items:center; justify-content:space-between;
-  font-size:12px; color:#456;
+/* ===== IMPORT BANNER ===== */
+.import-banner {
+  background:#f0f7ff;border-bottom:1px solid #cde;padding:12px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:#456;gap:12px;flex-wrap:wrap;
 }
-.shared-banner.hidden { display:none; }
-.shared-banner button {
-  background:#111; color:#fff; border:none; padding:6px 16px;
-  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1px;
-  cursor:pointer; transition:all .15s;
+.import-banner.hidden { display:none; }
+.import-banner-text { flex:1;min-width:200px; }
+.import-banner-actions { display:flex;gap:8px;flex-shrink:0; }
+.import-banner-actions button {
+  padding:6px 16px;font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:1px;cursor:pointer;border:none;transition:all .15s;
 }
-.shared-banner button:hover { background:#333; }
+.import-banner-actions .btn-save { background:#111;color:#fff; }
+.import-banner-actions .btn-dismiss { background:#ddd;color:#555; }
+.import-banner-actions button:hover { opacity:.8; }
 
 /* ===== CALENDAR SCREEN ===== */
 .calendar-screen { display:none; }
 .calendar-screen.active { display:block; }
 .page-header {
-  padding:18px 28px; border-bottom:2px solid #111;
-  display:flex; justify-content:space-between; align-items:center;
+  padding:18px 28px;border-bottom:2px solid #111;
+  display:flex;justify-content:space-between;align-items:center;
 }
-.header-left { display:flex; align-items:center; gap:14px; }
+.header-left { display:flex;align-items:center;gap:14px; }
 .back-btn {
-  width:30px; height:30px; border:1px solid var(--border); background:#fff;
-  cursor:pointer; display:flex; align-items:center; justify-content:center;
-  font-size:15px; transition:all .15s; flex-shrink:0;
+  width:30px;height:30px;border:1px solid var(--border);background:#fff;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:15px;transition:all .15s;flex-shrink:0;
 }
 .back-btn:hover { border-color:#111; }
 .header-titles h1 {
-  font-family:'Space Mono',monospace; font-size:16px; font-weight:700;
-  letter-spacing:3px; text-transform:uppercase; line-height:1.2;
+  font-family:'Space Mono',monospace;font-size:16px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;line-height:1.2;
 }
-.header-titles .subtitle { font-size:10px; color:#999; letter-spacing:1px; margin-top:2px; }
-.header-actions { display:flex; gap:8px; flex-shrink:0; }
+.header-titles .subtitle { font-size:10px;color:#999;letter-spacing:1px;margin-top:2px; }
+.header-actions { display:flex;gap:8px;flex-shrink:0; }
 .action-btn {
-  background:#fff; color:#111; border:1px solid var(--border);
-  padding:8px 16px; font-family:'Space Mono',monospace; font-size:10px;
-  letter-spacing:1px; cursor:pointer; transition:all .15s;
-  display:flex; align-items:center; gap:5px;
+  background:#fff;color:#111;border:1px solid var(--border);
+  padding:8px 16px;font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:1px;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;gap:5px;
 }
 .action-btn:hover { border-color:#111; }
-.action-btn.primary { background:#111; color:#fff; border-color:#111; }
+.action-btn.primary { background:#111;color:#fff;border-color:#111; }
 .action-btn.primary:hover { background:#333; }
+
 .copy-toast {
-  position:fixed; bottom:24px; left:50%;
+  position:fixed;bottom:24px;left:50%;
   transform:translateX(-50%) translateY(80px);
-  background:#111; color:#fff; padding:10px 24px;
-  font-family:'Space Mono',monospace; font-size:12px; letter-spacing:1px;
-  z-index:9999; transition:transform .3s ease; pointer-events:none;
+  background:#111;color:#fff;padding:10px 24px;
+  font-family:'Space Mono',monospace;font-size:12px;letter-spacing:1px;
+  z-index:9999;transition:transform .3s ease;pointer-events:none;
+  max-width:90vw;text-align:center;
 }
 .copy-toast.show { transform:translateX(-50%) translateY(0); }
 
 /* ===== MAIN LAYOUT ===== */
-.main-container { display:flex; min-height:calc(100vh - 70px); }
-.calendar-area { flex:1; padding:18px 22px; overflow-y:auto; }
-.calendar-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.main-container { display:flex;min-height:calc(100vh - 70px); }
+.calendar-area { flex:1;padding:18px 22px;overflow-y:auto; }
+.calendar-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:14px; }
 
 /* ===== MONTH ===== */
 .month-block { border:1px solid var(--border); }
 .month-title {
-  font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
-  letter-spacing:2px; text-transform:uppercase; padding:6px 10px;
-  background:var(--header-bg); border-bottom:1px solid var(--border);
+  font-family:'Space Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;padding:6px 10px;
+  background:var(--header-bg);border-bottom:1px solid var(--border);
 }
-.day-headers { display:grid; grid-template-columns:repeat(7,1fr); border-bottom:1px solid var(--border); }
+.day-headers { display:grid;grid-template-columns:repeat(7,1fr);border-bottom:1px solid var(--border); }
 .day-header {
-  font-size:8px; font-weight:600; color:var(--day-header);
-  text-align:center; padding:3px 0; text-transform:uppercase; letter-spacing:1px;
+  font-size:8px;font-weight:600;color:var(--day-header);
+  text-align:center;padding:3px 0;text-transform:uppercase;letter-spacing:1px;
 }
-.days-grid { display:grid; grid-template-columns:repeat(7,1fr); }
+.days-grid { display:grid;grid-template-columns:repeat(7,1fr); }
 .day-cell {
-  aspect-ratio:1; border-right:1px solid #f0f0f0; border-bottom:1px solid #f0f0f0;
-  position:relative; display:flex; flex-direction:column; align-items:center;
-  padding-top:2px; min-height:42px; cursor:default; transition:background .15s;
+  aspect-ratio:1;border-right:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0;
+  position:relative;display:flex;flex-direction:column;align-items:center;
+  padding-top:2px;min-height:42px;cursor:default;transition:background .15s;
 }
 .day-cell.droppable { transition:background .15s; }
-.day-cell.drag-over { outline:2px solid #111; outline-offset:-2px; }
+.day-cell.drag-over { outline:2px solid #111;outline-offset:-2px; }
 .day-cell .day-number {
-  font-size:10px; font-weight:500; line-height:1; color:var(--text);
-  position:relative; z-index:1;
+  font-size:10px;font-weight:500;line-height:1;color:var(--text);
+  position:relative;z-index:1;
 }
 .day-cell.outside .day-number { color:var(--outside); }
 .day-cell.holiday { background:var(--holiday-bg); }
 .day-cell .icons-container {
-  display:flex; flex-wrap:wrap; gap:2px; justify-content:center;
-  margin-top:2px; position:relative; z-index:1;
+  display:flex;flex-wrap:wrap;gap:2px;justify-content:center;
+  margin-top:2px;position:relative;z-index:1;
 }
 .day-cell .cell-icon {
-  width:12px; height:12px; border-radius:50%; cursor:pointer;
-  transition:transform .15s,opacity .15s; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  width:12px;height:12px;border-radius:50%;cursor:pointer;
+  transition:transform .15s,opacity .15s;box-shadow:0 1px 2px rgba(0,0,0,.15);
 }
-.day-cell .cell-icon:hover { transform:scale(1.3); opacity:.8; }
+.day-cell .cell-icon:hover { transform:scale(1.3);opacity:.8; }
 
 /* ===== LEGEND ===== */
 .legend-panel {
-  width:270px; min-width:270px; border-left:2px solid #111;
-  background:var(--legend-bg); display:flex; flex-direction:column;
+  width:270px;min-width:270px;border-left:2px solid #111;
+  background:var(--legend-bg);display:flex;flex-direction:column;
 }
 .legend-header {
-  font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
-  letter-spacing:2px; text-transform:uppercase; padding:12px 16px 9px;
+  font-family:'Space Mono',monospace;font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;padding:12px 16px 9px;
   border-bottom:1px solid var(--border);
 }
-.legend-items { flex:1; overflow-y:auto; padding:8px 12px; }
+.legend-items { flex:1;overflow-y:auto;padding:8px 12px; }
 .legend-section-title {
-  font-size:9px; font-weight:600; letter-spacing:1.5px;
-  text-transform:uppercase; color:#aaa; padding:10px 6px 4px;
+  font-size:9px;font-weight:600;letter-spacing:1.5px;
+  text-transform:uppercase;color:#aaa;padding:10px 6px 4px;
 }
 .legend-item {
-  display:flex; align-items:center; gap:8px; padding:5px 6px;
-  border-radius:5px; margin-bottom:2px; cursor:grab;
-  transition:background .15s; position:relative;
+  display:flex;align-items:center;gap:8px;padding:5px 6px;
+  border-radius:5px;margin-bottom:2px;cursor:grab;
+  transition:background .15s;position:relative;
 }
 .legend-item:hover { background:#eee; }
 .legend-item.dragging { opacity:.5; }
 .legend-color {
-  width:18px; height:18px; border-radius:50%; flex-shrink:0;
-  cursor:pointer; position:relative; border:2px solid transparent;
+  width:18px;height:18px;border-radius:50%;flex-shrink:0;
+  cursor:pointer;position:relative;border:2px solid transparent;
   transition:border-color .2s;
 }
 .legend-color:hover { border-color:#999; }
 .legend-color input[type="color"] {
-  position:absolute; width:100%; height:100%; opacity:0;
-  cursor:pointer; top:0; left:0;
+  position:absolute;width:100%;height:100%;opacity:0;
+  cursor:pointer;top:0;left:0;
 }
 .legend-color.square { border-radius:3px; }
 .legend-name {
-  font-size:11px; font-weight:500; flex:1; border:none;
-  background:transparent; font-family:'DM Sans',sans-serif;
-  outline:none; padding:2px 4px; border-radius:3px; min-width:0;
+  font-size:11px;font-weight:500;flex:1;border:none;
+  background:transparent;font-family:'DM Sans',sans-serif;
+  outline:none;padding:2px 4px;border-radius:3px;min-width:0;
 }
-.legend-name:focus { background:#fff; box-shadow:0 0 0 1px var(--border); }
+.legend-name:focus { background:#fff;box-shadow:0 0 0 1px var(--border); }
 .legend-delete {
-  width:16px; height:16px; border:none; background:transparent;
-  color:#bbb; font-size:13px; cursor:pointer; display:flex;
-  align-items:center; justify-content:center; border-radius:50%;
-  opacity:0; transition:all .15s; flex-shrink:0;
+  width:16px;height:16px;border:none;background:transparent;
+  color:#bbb;font-size:13px;cursor:pointer;display:flex;
+  align-items:center;justify-content:center;border-radius:50%;
+  opacity:0;transition:all .15s;flex-shrink:0;
 }
 .legend-item:hover .legend-delete { opacity:1; }
-.legend-delete:hover { background:#ddd; color:#666; }
+.legend-delete:hover { background:#ddd;color:#666; }
 .add-legend-btn {
-  display:flex; align-items:center; gap:6px; padding:7px 6px;
-  margin:3px 0; border:1px dashed #ccc; border-radius:5px;
-  background:transparent; cursor:pointer; font-family:'DM Sans',sans-serif;
-  font-size:11px; color:#999; width:100%; transition:all .15s;
+  display:flex;align-items:center;gap:6px;padding:7px 6px;
+  margin:3px 0;border:1px dashed #ccc;border-radius:5px;
+  background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;
+  font-size:11px;color:#999;width:100%;transition:all .15s;
 }
-.add-legend-btn:hover { border-color:#999; color:#666; background:#f5f5f5; }
+.add-legend-btn:hover { border-color:#999;color:#666;background:#f5f5f5; }
 .holiday-legend-static {
-  display:flex; align-items:center; gap:8px; padding:5px 6px;
-  font-size:11px; color:#888;
+  display:flex;align-items:center;gap:8px;padding:5px 6px;
+  font-size:11px;color:#888;
 }
 .holiday-swatch {
-  width:18px; height:18px; border-radius:3px;
-  background:var(--holiday-bg); border:1px solid #ddd; flex-shrink:0;
+  width:18px;height:18px;border-radius:3px;
+  background:var(--holiday-bg);border:1px solid #ddd;flex-shrink:0;
 }
 .instructions {
-  padding:12px 16px; border-top:1px solid var(--border);
-  font-size:9px; color:#aaa; line-height:1.6;
+  padding:12px 16px;border-top:1px solid var(--border);
+  font-size:9px;color:#aaa;line-height:1.6;
 }
 .instructions strong { color:#888; }
 .export-overlay {
-  position:fixed; inset:0; background:rgba(0,0,0,.4);
-  display:flex; align-items:center; justify-content:center; z-index:10000;
+  position:fixed;inset:0;background:rgba(0,0,0,.4);
+  display:flex;align-items:center;justify-content:center;z-index:10000;
 }
 .export-overlay .msg {
-  background:#fff; padding:24px 40px;
-  font-family:'Space Mono',monospace; font-size:14px;
+  background:#fff;padding:24px 40px;
+  font-family:'Space Mono',monospace;font-size:14px;
 }
 @media(max-width:1200px){.calendar-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:900px){
@@ -261,14 +269,15 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
 </head>
 <body>
 
-<!-- PROJECT SELECTOR -->
+<!-- ===== PROJECT SELECTOR ===== -->
 <div class="project-screen" id="projectScreen">
   <div class="project-logo">PAYETTE</div>
   <div class="project-title">Space Strategy Calendar</div>
+  <div class="project-desc">Create project calendars and share them with your team via URL.<br>All data is saved locally and encoded into the share link.</div>
   <div class="project-list" id="projectList"></div>
 </div>
 
-<!-- NEW PROJECT MODAL -->
+<!-- ===== NEW PROJECT MODAL ===== -->
 <div class="modal-overlay hidden" id="newProjectModal">
   <div class="modal-box">
     <h3>NEW PROJECT</h3>
@@ -280,29 +289,40 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
   </div>
 </div>
 
-<!-- CALENDAR SCREEN -->
+<!-- ===== CALENDAR SCREEN ===== -->
 <div class="calendar-screen" id="calendarScreen">
-  <!-- Shared link banner -->
-  <div class="shared-banner hidden" id="sharedBanner">
-    <span>You're viewing a shared calendar. Changes won't sync back to the sender.</span>
-    <button onclick="saveSharedToLocal()">SAVE TO MY PROJECTS</button>
+  <!-- Import banner for shared links -->
+  <div class="import-banner hidden" id="importBanner">
+    <div class="import-banner-text">
+      <strong>Shared calendar received.</strong> You can edit it here. Click <strong>Save to My Projects</strong> to keep a copy, or share your changes with a new link.
+    </div>
+    <div class="import-banner-actions">
+      <button class="btn-save" onclick="saveSharedToLocal()">SAVE TO MY PROJECTS</button>
+      <button class="btn-dismiss" onclick="dismissBanner()">DISMISS</button>
+    </div>
   </div>
+
   <div class="page-header">
     <div class="header-left">
       <button class="back-btn" onclick="goBack()" title="Back to projects">&#8592;</button>
       <div class="header-titles">
-        <h1 id="calendarTitle">PAYETTE SPACE STRATEGY CALENDAR</h1>
+        <h1 id="calendarTitle">PAYETTE</h1>
         <div class="subtitle" id="calendarSubtitle">2026</div>
       </div>
     </div>
     <div class="header-actions">
-      <button class="action-btn" onclick="copyURL()">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+      <button class="action-btn" onclick="shareURL()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
         SHARE URL
+      </button>
+      <button class="action-btn" onclick="copyPageURL()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        COPY URL
       </button>
       <button class="action-btn primary" onclick="exportCalendar()">EXPORT PNG</button>
     </div>
   </div>
+
   <div class="main-container" id="captureArea">
     <div class="calendar-area">
       <div class="calendar-grid" id="calendarGrid"></div>
@@ -332,17 +352,18 @@ body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text)
         Click color circles to change colors.<br>
         Click names to rename.<br>
         Double-click dot or filled cell to remove.<br>
-        Click <strong>SHARE URL</strong> to send calendar to others.
+        <strong>SHARE URL</strong> = send calendar with all data.<br>
+        <strong>COPY URL</strong> = copy current page link.
       </div>
     </div>
   </div>
 </div>
 
-<div class="copy-toast" id="copyToast">SHARE LINK COPIED</div>
+<div class="copy-toast" id="copyToast">COPIED</div>
 
 <script>
 // ==================== CONSTANTS ====================
-const MONTHS_2026 = [
+const MONTHS_2026=[
   {name:'January',year:2026,month:0},{name:'February',year:2026,month:1},
   {name:'March',year:2026,month:2},{name:'April',year:2026,month:3},
   {name:'May',year:2026,month:4},{name:'June',year:2026,month:5},
@@ -350,264 +371,251 @@ const MONTHS_2026 = [
   {name:'September',year:2026,month:8},{name:'October',year:2026,month:9},
   {name:'November',year:2026,month:10},{name:'December',year:2026,month:11},
 ];
-const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const FEDERAL_HOLIDAYS = {
+const DAY_NAMES=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const FED_HOL={
   '2026-0-1':"New Year's Day",'2026-0-19':"MLK Jr. Day",'2026-1-16':"Presidents' Day",
   '2026-4-25':"Memorial Day",'2026-5-19':"Juneteenth",'2026-6-3':"Independence Day (Observed)",
   '2026-8-7':"Labor Day",'2026-9-12':"Columbus Day",'2026-10-11':"Veterans Day",
   '2026-10-26':"Thanksgiving",'2026-11-25':"Christmas Day",
 };
-const DEFAULT_ICONS = [
+const DEF_ICONS=[
   {id:'exec',name:'Executive Meeting',color:'#6b6b6b'},
   {id:'arch',name:'Architect + MEP Tours',color:'#5ec6b0'},
   {id:'ws1',name:'Programming Workshop 1',color:'#8fa4d4'},
   {id:'ws2',name:'Programming Workshop 2',color:'#97a9d6'},
   {id:'steer',name:'Project Steering Meetings',color:'#f0a08a'},
 ];
-const DEFAULT_HOLIDAYS = [{id:'spring_break',name:'Spring Break',color:'#d5d5d5'}];
-const MASTER_KEY = 'payette_projects_v2';
+const DEF_HOLS=[{id:'spring_break',name:'Spring Break',color:'#d5d5d5'}];
+const LS_PROJECTS='psc_projects_v3';
 
 // ==================== STATE ====================
-let allProjects = [];
-let currentProjectId = null;
-let currentProjectName = '';
-let isSharedView = false; // true when opened from shared URL without local project
+let allProjects=[];  // [{id,name,createdAt}]
+let curProjId=null;
+let curProjName='';
+let isShared=false;   // opened from shared link, not yet saved locally
 
-let icons = [], customHolidays = [], calendarData = {}, holidayData = {};
-let nextIconId = 1, nextHolidayId = 1;
+let icons=[], customHolidays=[], calData={}, holData={};
+let nxIcon=1, nxHol=1;
 
-// ==================== PERSISTENCE ====================
-function loadProjects() {
-  try { const r=localStorage.getItem(MASTER_KEY); if(r) allProjects=JSON.parse(r); } catch(e){ allProjects=[]; }
-}
-function saveProjects() { try{localStorage.setItem(MASTER_KEY,JSON.stringify(allProjects));}catch(e){} }
-function pKey(id) { return 'payette_p_'+id; }
+// ==================== PERSISTENCE (localStorage) ====================
+function loadProjects(){ try{const r=localStorage.getItem(LS_PROJECTS);if(r) allProjects=JSON.parse(r);}catch(e){allProjects=[];} }
+function saveProjectsList(){ try{localStorage.setItem(LS_PROJECTS,JSON.stringify(allProjects));}catch(e){} }
+function pKey(id){ return 'psc_d_'+id; }
 
-function save() {
-  if(!currentProjectId) return;
-  try { localStorage.setItem(pKey(currentProjectId), JSON.stringify(getSnapshot())); } catch(e){}
-}
-
-function getSnapshot() {
-  return {name:currentProjectName,icons,customHolidays,calendarData,holidayData,nextIconId,nextHolidayId};
+function saveLocal(){
+  if(!curProjId) return;
+  try{localStorage.setItem(pKey(curProjId),JSON.stringify(getSnap()));}catch(e){}
+  // Update timestamp
+  const p=allProjects.find(x=>x.id===curProjId);
+  if(p){p.updatedAt=Date.now(); saveProjectsList();}
 }
 
-function applySnapshot(snap) {
-  icons = snap.icons || JSON.parse(JSON.stringify(DEFAULT_ICONS));
-  customHolidays = snap.customHolidays || JSON.parse(JSON.stringify(DEFAULT_HOLIDAYS));
-  calendarData = snap.calendarData || {};
-  holidayData = snap.holidayData || {};
-  nextIconId = snap.nextIconId || 1;
-  nextHolidayId = snap.nextHolidayId || 1;
-  currentProjectName = snap.name || 'Untitled';
-}
-
-function loadProjectData(pid) {
-  icons = JSON.parse(JSON.stringify(DEFAULT_ICONS));
-  customHolidays = JSON.parse(JSON.stringify(DEFAULT_HOLIDAYS));
-  calendarData = {}; holidayData = {}; nextIconId=1; nextHolidayId=1;
-  try {
+function loadLocal(pid){
+  resetState();
+  try{
     const r=localStorage.getItem(pKey(pid));
-    if(!r) return;
-    const p=JSON.parse(r);
-    applySnapshot(p);
-  } catch(e){}
+    if(r) applySnap(JSON.parse(r));
+  }catch(e){}
 }
 
-// ==================== URL ENCODING (share data via URL) ====================
-function encodeDataToURL() {
-  const snap = getSnapshot();
-  const json = JSON.stringify(snap);
-  const compressed = LZString.compressToEncodedURIComponent(json);
-  return compressed;
+function getSnap(){
+  return {n:curProjName,i:icons,h:customHolidays,c:calData,hd:holData,ni:nxIcon,nh:nxHol};
+}
+function applySnap(s){
+  if(s.i) icons=s.i;
+  if(s.h) customHolidays=s.h;
+  if(s.c) calData=s.c;
+  if(s.hd) holData=s.hd;
+  if(s.ni) nxIcon=s.ni;
+  if(s.nh) nxHol=s.nh;
+  if(s.n) curProjName=s.n;
+}
+function resetState(){
+  icons=JSON.parse(JSON.stringify(DEF_ICONS));
+  customHolidays=JSON.parse(JSON.stringify(DEF_HOLS));
+  calData={}; holData={}; nxIcon=1; nxHol=1;
 }
 
-function decodeDataFromURL(encoded) {
-  try {
-    const json = LZString.decompressFromEncodedURIComponent(encoded);
-    if(!json) return null;
-    return JSON.parse(json);
-  } catch(e) { return null; }
+// ==================== URL ENCODE / DECODE ====================
+function encodeSnap(){
+  return LZString.compressToEncodedURIComponent(JSON.stringify(getSnap()));
+}
+function decodeSnap(str){
+  try{
+    const j=LZString.decompressFromEncodedURIComponent(str);
+    if(!j) return null;
+    return JSON.parse(j);
+  }catch(e){return null;}
 }
 
-// ==================== PROJECT SELECTOR ====================
-function renderProjects() {
-  const list = document.getElementById('projectList');
-  list.innerHTML = '';
-  allProjects.forEach(proj => {
-    const card = document.createElement('div');
-    card.className = 'project-card';
-    card.onclick = () => openProject(proj.id);
-    card.innerHTML = `<div class="project-card-name">${esc(proj.name)}</div><div class="project-card-meta">Created ${new Date(proj.createdAt).toLocaleDateString()}</div>`;
-    const del = document.createElement('button');
-    del.className = 'project-card-delete';
-    del.innerHTML = '&times;';
-    del.onclick = e => {
+// ==================== PROJECT LIST ====================
+function renderProjects(){
+  const list=document.getElementById('projectList'); list.innerHTML='';
+  // Sort by most recently updated
+  const sorted=[...allProjects].sort((a,b)=>(b.updatedAt||b.createdAt)-(a.updatedAt||a.createdAt));
+  sorted.forEach(proj=>{
+    const card=document.createElement('div');card.className='project-card';
+    card.onclick=()=>openLocal(proj.id);
+    const d=new Date(proj.updatedAt||proj.createdAt);
+    card.innerHTML=`<div class="project-card-name">${esc(proj.name)}</div><div class="project-card-meta">Last edited ${d.toLocaleDateString()} ${d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</div>`;
+    const del=document.createElement('button');del.className='project-card-delete';del.innerHTML='&times;';
+    del.onclick=e=>{
       e.stopPropagation();
-      if(confirm('Delete "'+proj.name+'"? Cannot be undone.')) {
-        localStorage.removeItem(pKey(proj.id));
-        allProjects=allProjects.filter(p=>p.id!==proj.id);
-        saveProjects(); renderProjects();
-      }
+      if(!confirm('Delete "'+proj.name+'"?')) return;
+      try{localStorage.removeItem(pKey(proj.id));}catch(e){}
+      allProjects=allProjects.filter(p=>p.id!==proj.id);
+      saveProjectsList(); renderProjects();
     };
-    card.appendChild(del);
-    list.appendChild(card);
+    card.appendChild(del); list.appendChild(card);
   });
-  const add = document.createElement('div');
-  add.className = 'add-project-card';
-  add.onclick = showModal;
-  add.innerHTML = '<div class="plus">+</div><span>New Project</span>';
+  const add=document.createElement('div');add.className='add-project-card';
+  add.onclick=showModal;
+  add.innerHTML='<div class="plus">+</div><span>New Project</span>';
   list.appendChild(add);
 }
 
-function showModal() {
-  document.getElementById('newProjectModal').classList.remove('hidden');
-  const inp=document.getElementById('newProjectName'); inp.value=''; inp.focus();
-}
-function closeModal() { document.getElementById('newProjectModal').classList.add('hidden'); }
-function confirmNewProject() {
+// ==================== MODAL ====================
+function showModal(){document.getElementById('newProjectModal').classList.remove('hidden');const i=document.getElementById('newProjectName');i.value='';i.focus();}
+function closeModal(){document.getElementById('newProjectModal').classList.add('hidden');}
+function confirmNewProject(){
   const name=document.getElementById('newProjectName').value.trim();
   if(!name) return;
-  const id='p'+Date.now()+''+Math.random().toString(36).slice(2,5);
-  allProjects.push({id,name,createdAt:Date.now()});
-  saveProjects(); closeModal(); openProject(id);
+  const id='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  allProjects.push({id,name,createdAt:Date.now(),updatedAt:Date.now()});
+  saveProjectsList(); closeModal(); openLocal(id);
 }
 document.getElementById('newProjectName').addEventListener('keydown',e=>{
   if(e.key==='Enter') confirmNewProject();
   if(e.key==='Escape') closeModal();
 });
 
-function openProject(pid) {
-  currentProjectId = pid;
-  isSharedView = false;
-  loadProjectData(pid);
-  const proj = allProjects.find(p=>p.id===pid);
-  currentProjectName = proj ? proj.name : currentProjectName;
+// ==================== OPEN / NAVIGATE ====================
+function openLocal(pid){
+  curProjId=pid; isShared=false;
+  const proj=allProjects.find(p=>p.id===pid);
+  curProjName=proj?proj.name:'Untitled';
+  loadLocal(pid);
   showCalendar();
 }
 
-function openSharedData(snap) {
-  currentProjectId = null;
-  isSharedView = true;
-  applySnapshot(snap);
+function openShared(snap){
+  curProjId=null; isShared=true;
+  resetState(); applySnap(snap);
   showCalendar();
 }
 
-function showCalendar() {
-  document.getElementById('calendarTitle').textContent = 'PAYETTE — '+currentProjectName.toUpperCase();
-  document.getElementById('calendarSubtitle').textContent = '2026 SPACE STRATEGY CALENDAR';
-  document.getElementById('sharedBanner').classList.toggle('hidden', !isSharedView);
+function showCalendar(){
+  document.getElementById('calendarTitle').textContent='PAYETTE — '+curProjName.toUpperCase();
+  document.getElementById('calendarSubtitle').textContent='2026 SPACE STRATEGY CALENDAR';
+  document.getElementById('importBanner').classList.toggle('hidden',!isShared);
   document.getElementById('projectScreen').classList.add('hidden');
   document.getElementById('calendarScreen').classList.add('active');
   renderCalendar(); renderLegend();
 }
 
-function goBack() {
-  currentProjectId = null;
-  isSharedView = false;
-  // Clear hash
+function goBack(){
+  curProjId=null; isShared=false;
+  // Clear hash without reload
   history.replaceState(null,'',location.pathname+location.search);
   document.getElementById('calendarScreen').classList.remove('active');
+  document.getElementById('importBanner').classList.add('hidden');
   document.getElementById('projectScreen').classList.remove('hidden');
-  document.getElementById('sharedBanner').classList.add('hidden');
-  renderProjects();
+  loadProjects(); renderProjects();
 }
 
-function saveSharedToLocal() {
-  // Save the current shared view as a local project
-  const id='p'+Date.now()+''+Math.random().toString(36).slice(2,5);
-  allProjects.push({id, name:currentProjectName, createdAt:Date.now()});
-  saveProjects();
-  currentProjectId = id;
-  isSharedView = false;
-  save();
-  document.getElementById('sharedBanner').classList.add('hidden');
+function dismissBanner(){document.getElementById('importBanner').classList.add('hidden');}
+
+function saveSharedToLocal(){
+  const id='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  allProjects.push({id,name:curProjName,createdAt:Date.now(),updatedAt:Date.now()});
+  saveProjectsList();
+  curProjId=id; isShared=false;
+  saveLocal();
+  document.getElementById('importBanner').classList.add('hidden');
   toast('SAVED TO YOUR PROJECTS');
 }
 
 // ==================== CALENDAR ====================
-function renderCalendar() {
-  const grid=document.getElementById('calendarGrid');
-  grid.innerHTML='';
-  MONTHS_2026.forEach(m => {
-    const block=document.createElement('div'); block.className='month-block';
-    const title=document.createElement('div'); title.className='month-title';
+function renderCalendar(){
+  const grid=document.getElementById('calendarGrid');grid.innerHTML='';
+  MONTHS_2026.forEach(m=>{
+    const block=document.createElement('div');block.className='month-block';
+    const title=document.createElement('div');title.className='month-title';
     title.textContent=m.name+' '+m.year; block.appendChild(title);
-    const dh=document.createElement('div'); dh.className='day-headers';
+    const dh=document.createElement('div');dh.className='day-headers';
     DAY_NAMES.forEach(d=>{const el=document.createElement('div');el.className='day-header';el.textContent=d;dh.appendChild(el);});
     block.appendChild(dh);
-    const dg=document.createElement('div'); dg.className='days-grid';
+    const dg=document.createElement('div');dg.className='days-grid';
     const fd=new Date(m.year,m.month,1).getDay();
     const dim=new Date(m.year,m.month+1,0).getDate();
     const pd=new Date(m.year,m.month,0).getDate();
     for(let i=0;i<fd;i++) dg.appendChild(mkCell(pd-fd+1+i,true,null));
-    for(let d=1;d<=dim;d++){const k=`${m.year}-${m.month}-${d}`;dg.appendChild(mkCell(d,false,k,FEDERAL_HOLIDAYS[k]));}
+    for(let d=1;d<=dim;d++){const k=`${m.year}-${m.month}-${d}`;dg.appendChild(mkCell(d,false,k,FED_HOL[k]));}
     const tot=fd+dim;const rem=Math.ceil(tot/7)*7-tot;
     for(let i=1;i<=rem;i++) dg.appendChild(mkCell(i,true,null));
-    block.appendChild(dg); grid.appendChild(block);
+    block.appendChild(dg);grid.appendChild(block);
   });
 }
 
-function mkCell(day,outside,key,fedHoliday) {
+function mkCell(day,outside,key,fedH){
   const cell=document.createElement('div');
-  cell.className='day-cell'+(outside?' outside':'')+(fedHoliday?' holiday':'');
-  if(key) {
+  cell.className='day-cell'+(outside?' outside':'')+(fedH?' holiday':'');
+  if(key){
     cell.className+=' droppable'; cell.dataset.key=key;
     applyBg(cell,key);
     cell.addEventListener('dragover',e=>{e.preventDefault();cell.classList.add('drag-over');});
     cell.addEventListener('dragleave',()=>cell.classList.remove('drag-over'));
     cell.addEventListener('drop',e=>{
       e.preventDefault();cell.classList.remove('drag-over');
-      const raw=e.dataTransfer.getData('text/plain');
-      if(!raw) return;
+      const raw=e.dataTransfer.getData('text/plain');if(!raw) return;
       if(raw.startsWith('hol:')){
         const hId=raw.slice(4);
-        if(customHolidays.find(h=>h.id===hId)){holidayData[key]=hId;save();applyBg(cell,key);}
+        if(customHolidays.find(h=>h.id===hId)){holData[key]=hId;saveLocal();applyBg(cell,key);}
         return;
       }
       if(icons.find(ic=>ic.id===raw)){
-        if(!calendarData[key]) calendarData[key]=[];
-        calendarData[key].push(raw);save();renderDots(cell,key);
+        if(!calData[key])calData[key]=[];
+        calData[key].push(raw);saveLocal();renderDots(cell,key);
       }
     });
     cell.addEventListener('dblclick',e=>{
       if(e.target===cell||e.target.classList.contains('day-number')){
-        if(holidayData[key]){delete holidayData[key];save();applyBg(cell,key);}
+        if(holData[key]){delete holData[key];saveLocal();applyBg(cell,key);}
       }
     });
-    if(fedHoliday) cell.title=fedHoliday;
+    if(fedH) cell.title=fedH;
   }
   const num=document.createElement('div');num.className='day-number';num.textContent=day;cell.appendChild(num);
   if(key){const c=document.createElement('div');c.className='icons-container';cell.appendChild(c);renderDots(cell,key);}
   return cell;
 }
 
-function applyBg(cell,key) {
-  const hId=holidayData[key];
+function applyBg(cell,key){
+  const hId=holData[key];
   if(hId){const h=customHolidays.find(x=>x.id===hId);if(h){cell.style.background=h.color;cell.title=h.name;return;}}
-  cell.style.background='';cell.title=FEDERAL_HOLIDAYS[key]||'';
+  cell.style.background='';cell.title=FED_HOL[key]||'';
 }
 
-function renderDots(cell,key) {
+function renderDots(cell,key){
   const c=cell.querySelector('.icons-container');if(!c)return;c.innerHTML='';
-  (calendarData[key]||[]).forEach((iconId,idx)=>{
+  (calData[key]||[]).forEach((iconId,idx)=>{
     const icon=icons.find(ic=>ic.id===iconId);if(!icon)return;
     const dot=document.createElement('div');dot.className='cell-icon';
     dot.style.background=icon.color;dot.title=icon.name;
     dot.addEventListener('dblclick',e=>{
       e.preventDefault();e.stopPropagation();
-      calendarData[key].splice(idx,1);
-      if(calendarData[key].length===0) delete calendarData[key];
-      save();renderDots(cell,key);
+      calData[key].splice(idx,1);
+      if(calData[key].length===0) delete calData[key];
+      saveLocal();renderDots(cell,key);
     });
     c.appendChild(dot);
   });
 }
 
 // ==================== LEGEND ====================
-function renderLegend(){renderHolLegend();renderIconLegend();}
+function renderLegend(){renderHL();renderIL();}
 
-function renderHolLegend(){
+function renderHL(){
   const ct=document.getElementById('holidayLegend');ct.innerHTML='';
   customHolidays.forEach(h=>{
     const item=document.createElement('div');item.className='legend-item';item.draggable=true;
@@ -620,24 +628,24 @@ function renderHolLegend(){
     item.addEventListener('dragend',()=>item.classList.remove('dragging'));
     const cw=document.createElement('div');cw.className='legend-color square';cw.style.background=h.color;
     const ci=document.createElement('input');ci.type='color';ci.value=h.color;
-    ci.addEventListener('input',e=>{h.color=e.target.value;cw.style.background=e.target.value;save();refreshBgs();});
+    ci.addEventListener('input',e=>{h.color=e.target.value;cw.style.background=e.target.value;saveLocal();refreshBgs();});
     cw.appendChild(ci);item.appendChild(cw);
     const ni=document.createElement('input');ni.className='legend-name';ni.value=h.name;
-    ni.addEventListener('change',e=>{h.name=e.target.value;save();});
+    ni.addEventListener('change',e=>{h.name=e.target.value;saveLocal();});
     ni.addEventListener('mousedown',e=>e.stopPropagation());
     ni.addEventListener('dragstart',e=>e.preventDefault());
     item.appendChild(ni);
     const del=document.createElement('button');del.className='legend-delete';del.innerHTML='&times;';
     del.addEventListener('click',()=>{
       customHolidays=customHolidays.filter(x=>x.id!==h.id);
-      Object.keys(holidayData).forEach(k=>{if(holidayData[k]===h.id) delete holidayData[k];});
-      save();renderHolLegend();renderCalendar();
+      Object.keys(holData).forEach(k=>{if(holData[k]===h.id) delete holData[k];});
+      saveLocal();renderHL();renderCalendar();
     });
     item.appendChild(del);ct.appendChild(item);
   });
 }
 
-function renderIconLegend(){
+function renderIL(){
   const ct=document.getElementById('iconLegend');ct.innerHTML='';
   icons.forEach(icon=>{
     const item=document.createElement('div');item.className='legend-item';item.draggable=true;
@@ -650,18 +658,18 @@ function renderIconLegend(){
     item.addEventListener('dragend',()=>item.classList.remove('dragging'));
     const cw=document.createElement('div');cw.className='legend-color';cw.style.background=icon.color;
     const ci=document.createElement('input');ci.type='color';ci.value=icon.color;
-    ci.addEventListener('input',e=>{icon.color=e.target.value;cw.style.background=e.target.value;save();refreshDots();});
+    ci.addEventListener('input',e=>{icon.color=e.target.value;cw.style.background=e.target.value;saveLocal();refreshDots();});
     cw.appendChild(ci);item.appendChild(cw);
     const ni=document.createElement('input');ni.className='legend-name';ni.value=icon.name;
-    ni.addEventListener('change',e=>{icon.name=e.target.value;save();refreshDots();});
+    ni.addEventListener('change',e=>{icon.name=e.target.value;saveLocal();refreshDots();});
     ni.addEventListener('mousedown',e=>e.stopPropagation());
     ni.addEventListener('dragstart',e=>e.preventDefault());
     item.appendChild(ni);
     const del=document.createElement('button');del.className='legend-delete';del.innerHTML='&times;';
     del.addEventListener('click',()=>{
       icons=icons.filter(i=>i.id!==icon.id);
-      Object.keys(calendarData).forEach(k=>{calendarData[k]=calendarData[k].filter(id=>id!==icon.id);if(calendarData[k].length===0) delete calendarData[k];});
-      save();renderIconLegend();renderCalendar();
+      Object.keys(calData).forEach(k=>{calData[k]=calData[k].filter(id=>id!==icon.id);if(calData[k].length===0) delete calData[k];});
+      saveLocal();renderIL();renderCalendar();
     });
     item.appendChild(del);ct.appendChild(item);
   });
@@ -672,35 +680,39 @@ function refreshBgs(){document.querySelectorAll('.day-cell.droppable').forEach(c
 
 function addNewIcon(){
   const hue=Math.floor(Math.random()*360);
-  icons.push({id:'i'+nextIconId++,name:'New Icon',color:`hsl(${hue},55%,60%)`});
-  save();renderIconLegend();
+  icons.push({id:'i'+nxIcon++,name:'New Icon',color:`hsl(${hue},55%,60%)`});
+  saveLocal();renderIL();
   const items=document.querySelectorAll('#iconLegend .legend-name');
   if(items.length) items[items.length-1].focus();
 }
 function addNewHoliday(){
-  customHolidays.push({id:'h'+nextHolidayId++,name:'New Break',color:'#d5d5d5'});
-  save();renderHolLegend();
+  customHolidays.push({id:'h'+nxHol++,name:'New Break',color:'#d5d5d5'});
+  saveLocal();renderHL();
   const items=document.querySelectorAll('#holidayLegend .legend-name');
   if(items.length) items[items.length-1].focus();
 }
 
-// ==================== SHARE URL ====================
-function copyURL() {
-  const encoded = encodeDataToURL();
-  const url = location.origin + location.pathname + '#data=' + encoded;
+// ==================== SHARE / COPY / EXPORT ====================
+function shareURL(){
+  const encoded=encodeSnap();
+  const base=location.origin+location.pathname;
+  const url=base+'#data='+encoded;
   navigator.clipboard.writeText(url).then(()=>{
-    toast('SHARE LINK COPIED');
-  }).catch(()=>prompt('Copy this URL:',url));
+    toast('SHARE LINK COPIED — paste and send to your team');
+  }).catch(()=>prompt('Copy this share link:',url));
 }
 
-function toast(msg) {
-  const t=document.getElementById('copyToast');
-  t.textContent=msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2200);
+function copyPageURL(){
+  navigator.clipboard.writeText(location.href).then(()=>{
+    toast('PAGE URL COPIED');
+  }).catch(()=>prompt('Copy URL:',location.href));
 }
 
-// ==================== EXPORT ====================
+function toast(msg){
+  const t=document.getElementById('copyToast');t.textContent=msg;
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);
+}
+
 async function exportCalendar(){
   const ov=document.createElement('div');ov.className='export-overlay';
   ov.innerHTML='<div class="msg">Exporting...</div>';document.body.appendChild(ov);
@@ -708,7 +720,7 @@ async function exportCalendar(){
     const el=document.getElementById('captureArea');
     const canvas=await html2canvas(el,{scale:2,backgroundColor:'#ffffff',useCORS:true});
     const link=document.createElement('a');
-    link.download=`payette-${currentProjectName.toLowerCase().replace(/\s+/g,'-')||'calendar'}-2026.png`;
+    link.download=`payette-${curProjName.toLowerCase().replace(/[^a-z0-9]+/g,'-')||'calendar'}-2026.png`;
     link.href=canvas.toDataURL('image/png');link.click();
   }catch(err){console.error(err);alert('Export failed.');}
   ov.remove();
@@ -719,20 +731,15 @@ function esc(s){const d=document.createElement('div');d.textContent=s;return d.i
 // ==================== INIT ====================
 loadProjects();
 
-// Check URL hash for shared data
-const hash = location.hash.replace('#','');
-if(hash.startsWith('data=')) {
-  // Shared link with embedded data
-  const encoded = hash.slice(5);
-  const snap = decodeDataFromURL(encoded);
-  if(snap) {
-    openSharedData(snap);
+// Check hash for shared data
+const hash=location.hash.slice(1);
+if(hash.startsWith('data=')){
+  const snap=decodeSnap(hash.slice(5));
+  if(snap){
+    openShared(snap);
   } else {
     renderProjects();
   }
-} else if(hash && allProjects.find(p=>p.id===hash)) {
-  // Legacy local project link
-  openProject(hash);
 } else {
   renderProjects();
 }
